@@ -1,0 +1,70 @@
+﻿@using System.Web.Mvc
+@model TaskPilot.Entidades.Usuario
+
+<h2>Nuevo Usuario</h2>
+
+@using (Html.BeginForm())
+{
+
+    <p>
+
+        Nombre
+
+        <br />
+
+        @Html.TextBoxFor(x => x.NombreCompleto)
+
+    </p>
+
+    <p>
+
+        Correo
+
+        <br />
+
+        @Html.TextBoxFor(x => x.Correo)
+
+    </p>
+
+    <p>
+
+        Usuario
+
+        <br />
+
+        @Html.TextBoxFor(x => x.UsuarioLogin)
+
+    </p>
+
+    <p>
+
+        Clave
+
+        <br />
+
+        @Html.PasswordFor(x => x.Clave)
+
+    </p>
+
+    <p>
+
+        Rol
+
+        <br />
+
+        @Html.DropDownListFor(
+        x => x.Rol,
+
+        new List<SelectListItem>
+        {
+        new SelectListItem(){Text="ADMIN",Value="ADMIN"},
+        new SelectListItem(){Text="USER",Value="USER"}
+        })
+
+    </p>
+
+    <input type="submit"
+           value="Guardar"
+           class="btn btn-primary" />
+
+}

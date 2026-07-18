@@ -1,0 +1,49 @@
+﻿@model TaskPilot.Entidades.Tarea
+
+@{
+    ViewBag.Title = "Eliminar Tarea";
+}
+
+<h2>Eliminar Tarea</h2>
+
+<h4>¿Está seguro de eliminar esta tarea?</h4>
+
+<p>
+    <b>Título:</b>
+    @Model.Titulo
+</p>
+
+<p>
+    <b>Descripción:</b>
+    @Model.Descripcion
+</p>
+
+<p>
+    <b>Estado:</b>
+    @Model.Estado
+</p>
+
+<p>
+    <b>Prioridad:</b>
+    @Model.Prioridad
+</p>
+
+<p>
+    <b>Usuarios asignados:</b>
+    @Model.NombreUsuario
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.IdTarea)
+
+    <input type="submit"
+           value="Eliminar"
+           class="btn btn-danger" />
+
+    @Html.ActionLink(
+                "Cancelar",
+                "Index",
+                null,
+                new { @class = "btn btn-secondary" })
+}

@@ -1,0 +1,13 @@
+﻿@model TaskPilot.Entidades.Usuario
+
+<h2>Detalle del Usuario</h2>
+<p><b>Nombre:</b>@Model.NombreCompleto</p>
+<p><b>Correo:</b>@Model.Correo</p>
+<p><b>Usuario:</b>@Model.UsuarioLogin</p>
+<p><b>Rol:</b>@Model.Rol</p>
+
+<p>
+    @Html.ActionLink("Volver", "Index",
+    null,
+    new { @class="btn btn-secondary"})
+</p>

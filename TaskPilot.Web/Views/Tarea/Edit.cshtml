@@ -1,0 +1,119 @@
+﻿@model TaskPilot.Entidades.Tarea
+
+@{
+    ViewBag.Title = "Editar Tarea";
+}
+
+<h2>Editar Tarea</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.IdTarea)
+
+    <p>
+
+        Título
+
+        <br />
+
+        @Html.TextBoxFor(x => x.Titulo)
+
+    </p>
+
+    <p>
+
+        Descripción
+
+        <br />
+
+        @Html.TextAreaFor(x => x.Descripcion)
+
+    </p>
+
+    <p>
+
+        Fecha Inicio
+
+        <br />
+
+        @Html.TextBoxFor(x => x.FechaInicio,
+            "{0:yyyy-MM-dd}",
+            new { type = "date" })
+
+    </p>
+
+    <p>
+
+        Fecha Fin
+
+        <br />
+
+        @Html.TextBoxFor(x => x.FechaFin,
+            "{0:yyyy-MM-dd}",
+            new { type = "date" })
+
+    </p>
+
+    <p>
+
+        Estado
+
+        <br />
+
+        @Html.DropDownListFor(
+        x => x.Estado,
+
+        new List<SelectListItem>
+        {
+            new SelectListItem(){Text="Pendiente",Value="Pendiente"},
+            new SelectListItem(){Text="En progreso",Value="En progreso"},
+            new SelectListItem(){Text="Completada",Value="Completada"}
+        })
+
+    </p>
+
+    <p>
+
+        Prioridad
+
+        <br />
+
+        @Html.DropDownListFor(
+        x => x.Prioridad,
+
+        new List<SelectListItem>
+        {
+            new SelectListItem(){Text="Alta",Value="Alta"},
+            new SelectListItem(){Text="Media",Value="Media"},
+            new SelectListItem(){Text="Baja",Value="Baja"}
+        })
+
+    </p>
+
+    <p>
+
+        Usuarios asignados
+
+        <br />
+
+        @Html.ListBoxFor(
+            x => x.UsuariosSeleccionados,
+            (MultiSelectList)ViewBag.Usuarios,
+            new
+            {
+                @class = "form-control",
+                size = "6"
+            })
+
+    </p>
+
+    <input type="submit"
+           value="Guardar"
+           class="btn btn-primary" />
+
+    @Html.ActionLink(
+        "Cancelar",
+        "Index",
+        null,
+        new { @class = "btn btn-secondary" })
+}

@@ -1,0 +1,149 @@
+﻿@model List<TaskPilot.Entidades.Tarea>
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Pendientes</h5>
+                <p class="card-text h3">@ViewBag.Pendientes</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">En Progreso</h5>
+                <p class="card-text h3">@ViewBag.EnProgreso</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Completadas</h5>
+                <p class="card-text h3">@ViewBag.Completadas</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Distribución por Estado</h5>
+                <canvas id="graficaEstados" style="max-height:280px"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Distribución por Prioridad</h5>
+                <canvas id="graficaPrioridad" style="max-height:280px"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>Tareas Críticas</h4>
+
+@{
+    var criticas = ViewBag.Criticas as List<TaskPilot.Entidades.Tarea>;
+}
+
+@if (criticas != null && criticas.Count > 0)
+{
+    <table class="table table-bordered table-hover mb-4">
+        <tr>
+            <th>Título</th>
+            <th>Fecha Límite</th>
+            <th>Asignado a</th>
+            <th>Estado</th>
+        </tr>
+        @foreach (var t in criticas)
+        {
+            <tr>
+                <td>@t.Titulo</td>
+                <td>@t.FechaFin.ToString("dd/MM/yyyy")</td>
+                <td>@t.NombreUsuario</td>
+                <td>@t.Estado</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p class="text-muted">No hay tareas críticas por ahora.</p>
+}
+
+<h4>Todas las Tareas</h4>
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>Título</th>
+        <th>Fecha Límite</th>
+        <th>Asignado a</th>
+        <th>Estado</th>
+        <th>Prioridad</th>
+    </tr>
+    @foreach (var t in Model)
+    {
+        <tr>
+            <td>@t.Titulo</td>
+            <td>@t.FechaFin.ToString("dd/MM/yyyy")</td>
+            <td>@t.NombreUsuario</td>
+            <td>@t.Estado</td>
+            <td>@t.Prioridad</td>
+        </tr>
+    }
+</table>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        var ctxEstados = document.getElementById('graficaEstados').getContext('2d');
+        new Chart(ctxEstados, {
+            type: 'doughnut',
+            data: {
+                labels: ['Pendiente', 'En Progreso', 'Completada'],
+                datasets: [{
+                    data: [@ViewBag.Pendientes, @ViewBag.EnProgreso, @ViewBag.Completadas],
+                    backgroundColor: ['#f0ad4e', '#337ab7', '#5cb85c']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+
+        var conteoAlta  = @Model.Count(t => t.Prioridad == "Alta");
+        var conteoMedia = @Model.Count(t => t.Prioridad == "Media");
+        var conteoBaja  = @Model.Count(t => t.Prioridad == "Baja");
+
+        var ctxPrioridad = document.getElementById('graficaPrioridad').getContext('2d');
+        new Chart(ctxPrioridad, {
+            type: 'bar',
+            data: {
+                labels: ['Alta', 'Media', 'Baja'],
+                datasets: [{
+                    label: 'Nº de Tareas',
+                    data: [conteoAlta, conteoMedia, conteoBaja],
+                    backgroundColor: ['#d9534f', '#f0ad4e', '#5cb85c']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
+                plugins: { legend: { display: false } }
+            }
+        });
+    </script>
+}

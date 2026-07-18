@@ -1,0 +1,30 @@
+﻿@model TaskPilot.Entidades.Tarea
+
+@{
+    ViewBag.Title = "Detalle de la Tarea";
+}
+
+<h2>Detalle de la Tarea</h2>
+
+<p><b>Título:</b> @Model.Titulo</p>
+
+<p><b>Descripción:</b> @Model.Descripcion</p>
+
+<p><b>Estado:</b> @Model.Estado</p>
+
+<p><b>Prioridad:</b> @Model.Prioridad</p>
+
+<p><b>Fecha Inicio:</b> @Model.FechaInicio.ToShortDateString()</p>
+
+<p><b>Fecha Fin:</b> @Model.FechaFin.ToShortDateString()</p>
+
+<p>
+    <b>Usuarios asignados:</b>
+    @Model.NombreUsuario
+</p>
+
+@Html.ActionLink(
+    "Volver",
+    "Index",
+    null,
+    new { @class = "btn btn-secondary" })

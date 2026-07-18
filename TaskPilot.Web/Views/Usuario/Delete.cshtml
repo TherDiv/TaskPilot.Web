@@ -1,0 +1,21 @@
+﻿@model TaskPilot.Entidades.Usuario
+
+<h2>Eliminar Usuario</h2>
+
+<h4>¿Desea eliminar este usuario?</h4>
+
+<p>@Model.NombreCompleto</p>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.IdUsuario)
+
+    <input type="submit"
+           value="Eliminar"
+           class="btn btn-danger" />
+
+    @Html.ActionLink("Cancelar",
+    "Index",
+    null,
+    new { @class = "btn btn-secondary" })
+}

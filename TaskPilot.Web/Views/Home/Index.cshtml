@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "TaskPilot";
+}
+
+<main class="container mt-4">
+
+    <div class="text-center mb-5">
+        <h1>TaskPilot</h1>
+        <p class="lead">
+            Sistema de Gestión de Tareas
+        </p>
+
+        <hr />
+
+        <p>
+            Bienvenido al sistema TaskPilot. Desde aquí podrá administrar usuarios y tareas.
+        </p>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <div class="card">
+
+                <div class="card-body">
+
+                    <h3>Gestión de Usuarios</h3>
+
+                    <p>
+                        Registrar, editar, consultar y eliminar usuarios.
+                    </p>
+
+                    @Html.ActionLink(
+                        "Ir a Usuarios",
+                        "Index",
+                        "Usuario",
+                        null,
+                        new { @class = "btn btn-primary" })
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card">
+
+                <div class="card-body">
+
+                    <h3>Gestión de Tareas</h3>
+
+                    <p>
+                        Crear, editar, consultar y administrar tareas.
+                    </p>
+
+                    @Html.ActionLink(
+                        "Ir a Tareas",
+                        "Index",
+                        "Tarea",
+                        null,
+                        new { @class = "btn btn-success" })
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>

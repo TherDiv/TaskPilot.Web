@@ -1,0 +1,74 @@
+﻿@model List<TaskPilot.Entidades.Tarea>
+
+@{
+    ViewBag.Title = "Tareas";
+}
+
+<h2>Gestión de Tareas</h2>
+
+<p>
+    @Html.ActionLink(
+        "Nueva Tarea",
+        "Create",
+        null,
+        new { @class = "btn btn-success" })
+</p>
+
+<table class="table table-striped table-bordered table-hover">
+
+    <tr>
+        <th>ID</th>
+
+        <th>Título</th>
+
+        <th>Estado</th>
+
+        <th>Prioridad</th>
+
+        <th>Inicio</th>
+
+        <th>Fin</th>
+
+        <th>Usuarios</th>
+
+        <th>Acciones</th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.IdTarea</td>
+
+            <td>@item.Titulo</td>
+
+            <td>@item.Estado</td>
+
+            <td>@item.Prioridad</td>
+
+            <td>@item.FechaInicio.ToShortDateString()</td>
+
+            <td>@item.FechaFin.ToShortDateString()</td>
+
+            <td>@item.NombreUsuario</td>
+
+            <td>
+
+                @Html.ActionLink("Detalle", "Details",
+                    new { id = item.IdTarea },
+                    new { @class = "btn btn-info btn-sm" })
+
+                @Html.ActionLink("Editar", "Edit",
+                    new { id = item.IdTarea },
+                    new { @class = "btn btn-warning btn-sm" })
+
+                @Html.ActionLink("Eliminar", "Delete",
+                    new { id = item.IdTarea },
+                    new { @class = "btn btn-danger btn-sm" })
+
+            </td>
+
+        </tr>
+    }
+
+</table>
